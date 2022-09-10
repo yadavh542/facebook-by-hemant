@@ -22,6 +22,7 @@ import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverT
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 import Moment from 'react-moment';
+import PostMenu from './PostMenu';
 
 
 const Post = ({id,username,img,userImg,caption}:any) =>{
@@ -86,7 +87,7 @@ const Post = ({id,username,img,userImg,caption}:any) =>{
         <div className='flex items-center p-3 '>
             <img className='h-10 w-10 items-center rounded-full object-contain border p-[1.5px]' src={userImg} alt="" />
             <p className='flex-1 ml-2 font-bold'>{username}</p>
-            <DotsHorizontalIcon className='h-6 cursor-pointer'/>
+            <PostMenu/>
         </div>
 
         {/* caption */}

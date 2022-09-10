@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Image from 'next/image';
 import React from 'react';
 import {
@@ -21,14 +23,14 @@ import { Navigate } from "react-router-dom";
 const Header = () => {
   const {data:session} = useSession();
 
-  const signingOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      signOut();
-      <Navigate to='/Login'/>
-  }
+  // const signingOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //     signOut();
+  //     <Navigate to='/Login'/>
+  // }
 
-  const signingIn = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    signIn();
-  }
+  // const signingIn = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   signIn();
+  // }
 
   return (
     <div className='p-2 lg:px-5 z-50 sticky top-0 bg-white shadow-md justify-between flex items-center h-16'>
@@ -82,10 +84,13 @@ const Header = () => {
             <Image src={session?.user?.image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1365px-Facebook_f_logo_%282019%29.svg.png'}
             height={30}
             width={30}
-            onClick={signingOut}
+            
             className='rounded-full cursor-pointer'
             />
-            <p onClick={signingIn} className='ml-1 cursor-pointer font-semibold'>{session?.user?.name ||'Sign In'}</p>
+            { !session?
+              <p onClick={()=>signIn()} className='ml-1 cursor-pointer font-semibold'>Sign In</p>:
+            <p onClick={()=>signOut()} className='ml-1 cursor-pointer font-semibold'>Sign Out</p>
+            }
           </div>
 
           <ViewGridIcon className='icon'/>
