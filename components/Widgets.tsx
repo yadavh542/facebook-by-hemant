@@ -44,7 +44,7 @@ const Widgets = () => {
       }
 
       {/* Contacts */}
-      <div className='flex justify-between'>
+      <div className='flex justify-between mb-2'>
         <h2 className='font-semibold'>Contacts</h2>
         <div className='flex space-x-2'>
           {/* icons */}

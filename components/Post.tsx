@@ -10,10 +10,12 @@ import {
     PaperAirplaneIcon,
     HandThumbUpIcon,
     HandIcon,
-    
+    ChatAltIcon,
+    ThumbUpIcon,
 } from "@heroicons/react/outline";
 import {
-    HeartIcon as HeartIconFilled
+    ThumbUpIcon as ThumbUpIconFilled,
+    HeartIcon as HeartIconFilled,
     
 } from "@heroicons/react/solid";
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
@@ -82,7 +84,7 @@ const Post = ({id,username,img,userImg,caption}:any) =>{
 
         {/* header */}
         <div className='flex items-center p-3 '>
-            <img className='h-10 w-10 rounded-full object-contain border p-1' src={userImg} alt="" />
+            <img className='h-10 w-10 items-center rounded-full object-contain border p-[1.5px]' src={userImg} alt="" />
             <p className='flex-1 ml-2 font-bold'>{username}</p>
             <DotsHorizontalIcon className='h-6 cursor-pointer'/>
         </div>
@@ -106,21 +108,24 @@ const Post = ({id,username,img,userImg,caption}:any) =>{
         </div>
 
         {/* Like & Comment Icons  */}
-        <div className='px-5 mt-2 flex justify-between'> 
-        <div className='flex space-x-4'>
+        <hr className='mx-5'/>
+        <div className='px-5 my-2 flex justify-evenly'> 
 
-            {hasLiked?<HeartIconFilled onClick={sendLikes} className='postBtn text-red-500'/>:
-            <HeartIcon onClick={sendLikes} className='postBtn hover:text-red-500'/>
+        <div className='flex space-x-2'>
+            {hasLiked?<ThumbUpIconFilled onClick={sendLikes} className='postBtn text-blue-500 -rotate-12 hover:rotate-12' />:
+            <ThumbUpIcon onClick={sendLikes} className='postBtn hover:text-blue-500 -rotate-12 hover:rotate-12'/>
             }
-            
-            <ChatIcon className='postBtn'/>
-            <PaperAirplaneIcon className='postBtn hover:rotate-45'/>
-        </div>
-        <BookmarkIcon className='postBtn'/>
+            <p className={hasLiked? 'font-semibold text-blue-500':'font-semibold text-gray-500'}>Like</p>
         </div>
 
+        <div className='flex space-x-2'>
+            <ChatAltIcon className='postBtn'/>
+            <p className='font-semibold cursor-pointer text-gray-500'>Comment</p>
+        </div>
+       
+        </div>
+        <hr className='mx-5 mb-4'/>
         
-
 
         {/* comments */}
         {comments.length>0 && (
@@ -143,22 +148,28 @@ const Post = ({id,username,img,userImg,caption}:any) =>{
         )}
 
         {/* input box */}
-        <form className='flex items-center p-3 '>
-            <EmojiHappyIcon className='postBtn'/>
-            <input 
+        <form className='flex items-center p-3 space-x-1'>
+            <img className='h-8 w-8 rounded-full object-contain' src={userImg}/>
             
+            <div className='flex items-center border-none flex-1 focus:ring-0 outline-none bg-gray-100 rounded-xl'>
+            <input 
             value={comment}
             onChange={(e:any)=>setComment(e.target.value)}
             type="text"
             placeholder='Write a Comment...'
-            className='border-none flex-1 focus:ring-0 outline-none bg-gray-100 rounded-full px-4'
+            className='border-none flex-1 focus:ring-0 outline-none bg-gray-100 rounded-full px-4 py-2 '
             />
+            <EmojiHappyIcon className='postBtn mr-5'/>
+            </div>
             <button 
+            hidden
             type='submit'
             disabled={!comment.trim()}
             onClick={sendComment}
             className='font-semibold text-blue-500'>Post</button>
         </form>
+
+
     </div>
   )
 }
