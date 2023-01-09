@@ -88,8 +88,11 @@ const Header = () => {
             className='rounded-full cursor-pointer'
             />
             { !session?
-              <p onClick={()=>signIn()} className='ml-1 cursor-pointer font-semibold'>Sign In</p>:
-            <p onClick={()=>signOut()} className='ml-1 cursor-pointer font-semibold'>Sign Out</p>
+              <a 
+              href={`/api/auth/signin`}
+              onClick={(e)=>{e.preventDefault();signIn()}} 
+              className='ml-1 cursor-pointer font-semibold'>Sign In</a>:
+            <p onClick={(e)=>{e.preventDefault();signOut()}} className='ml-1 cursor-pointer font-semibold'>Sign Out</p>
             }
           </div>
 
