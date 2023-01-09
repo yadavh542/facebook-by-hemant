@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import NextAuth from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 import TwitterProvider from "next-auth/providers/twitter";
@@ -18,14 +20,15 @@ export default NextAuth({
   ],
 
   callbacks: {
-    async session({session, token,user}){
+    async session({session, token, user}){
       session.user.username = session.user.name
       .split(" ")
       .join("")
       .toLocaleLowerCase();
+      token.userRole = "admin"
 
       session.user.uid = token.sub;
-      return session;
+      return {session,token,user};
     }
   }
   
