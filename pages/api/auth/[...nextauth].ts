@@ -28,7 +28,7 @@ export default NextAuth({
       token.userRole = "admin"
 
       session.user.uid = token.sub;
-      return {session,token,user};
+      return session,token,user;
     }
   }
   
